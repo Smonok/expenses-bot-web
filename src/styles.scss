@@ -1,0 +1,13 @@
+@import "~hamburgers/_sass/hamburgers/hamburgers.scss";
+
+.navbar {
+    background: #3b8686;
+    //position: fixed;
+}
+
+.navbar a {
+    color: white;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; margin-top: 3.5%;}

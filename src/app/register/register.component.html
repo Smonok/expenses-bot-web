@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" src="../../assets/images/bot-logo.png" class="profile-img-card" />
+        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <!-- NAME -->
+            <div class="form-group">
+                <label for="name">Имя<span class="required-asterisk">*</span></label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required minlength="3"
+                    maxlength="30" #name="ngModel" />
+                <div class="alert alert-danger" *ngIf="name.errors && f.submitted">
+                    <div *ngIf="name.errors.required">Обязательно для заполнения</div>
+                    <div *ngIf="name.errors.minlength">
+                        Имя должно содержать больше 2-х символов
+                    </div>
+                    <div *ngIf="name.errors.maxlength">
+                        Имя должно содержать меньше 30 символов
+                    </div>
+                </div>
+            </div>
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label for="email">Email<span class="required-asterisk">*</span></label>
+                <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
+                    #email="ngModel" />
+                <div class="alert alert-danger" *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors.required">Обязательно для заполнения</div>
+                    <div *ngIf="email.errors.email">
+                        Неверный формат
+                    </div>
+                </div>
+            </div>
+            <!-- CHAT ID -->
+            <div class="form-group">
+                <label for="chatId">Id чата (/id)<span class="required-asterisk">*</span></label>
+                <input type="number" class="form-control" name="chatId" [(ngModel)]="form.chatId" required chatId
+                    #chatId="ngModel" />
+                <div class="alert alert-danger" *ngIf="form.chatId <= 0 && f.submitted">
+                    Обязательно для заполнения
+                </div>
+            </div>
+            <!-- PASSWORD -->
+            <div class="form-group">
+                <label for="password">Пароль<span class="required-asterisk">*</span></label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+                    minlength="6" #password="ngModel" />
+                <div class="alert alert-danger" *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors.required">Обязательно для заполнения</div>
+                    <div *ngIf="password.errors.minlength">
+                        Пароль должен состоять минимум из 6 символов
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">Регистрация</button>
+            </div>
+
+            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+                Ошибка регистрации!<br>
+                {{errorMessage}}
+            </div>
+        </form>
+
+        <div class="alert alert-success" *ngIf="isSuccessful">
+            Регистрация успешна!
+        </div>
+    </div>
+</div>
