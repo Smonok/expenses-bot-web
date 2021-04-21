@@ -37,15 +37,15 @@
   </nav>
 
   <mat-sidenav-container class="sidenav-container">
+    <!-- Left side panel -->
     <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
       (click)="onSidenavClick()">
-      <a mat-button routerLink="/page1">Page 1</a>
-      <a mat-button routerLink="/page2">Page 2</a>
-      <a mat-button routerLink="/page3">Page 3</a>
-      <a mat-button routerLink="/page4">Page 4</a>
-      <a mat-button routerLink="/page5">Page 5</a>
+      <a mat-button routerLink="user/{{getChatId()}}/profile">Личный кабинет</a>
+      <a mat-button>Мои расходы</a>
+      <a mat-button>Статистика расходов</a>
     </mat-sidenav>
     <mat-sidenav-content>
+      <!-- Page content -->
       <main>
         <router-outlet></router-outlet>
       </main>

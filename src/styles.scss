@@ -2,12 +2,21 @@
 
 .navbar {
     background: #3b8686;
-    //position: fixed;
+    font-size: large;
 }
 
 .navbar a {
     color: white;
+    font-size: large;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; margin-top: 3.5%;}
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: OCR A Std, monospace;
+    font-size: medium;
+    margin-top: 3.5%;
+}

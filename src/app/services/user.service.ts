@@ -21,4 +21,8 @@ export class UserService {
   existsByChatId(chatId: number): Observable<any> {
     return this.http.get(API_URL + 'exists/' + chatId, { responseType: 'text' });
   }
+
+  getChatIdByEmail(email: string): Observable<any> {
+    return this.http.get(API_URL + email, { responseType: 'text' });
+  }
 }

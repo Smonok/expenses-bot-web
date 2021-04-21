@@ -5,7 +5,8 @@
 }
 
 .menu-button {
-    color: white;
+    color: white;    
+    margin-right: 1%;
 }
 
 .sidenav-container {
@@ -14,12 +15,13 @@
     background-color: white;
     .sidenav {
         min-width: 240px;
+        text-align: center;
         //background-color: #79bd9a;
         a {
             display: block;
             padding: 6px 24px;
             width: 100%;
-            text-align: left;
+            margin-top: 5%;
         }
     }
     main {

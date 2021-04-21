@@ -32,16 +32,16 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.form;
 
     this.authService.login(email, password).subscribe(
-
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-
-        this.router.navigate(['profile']).then(() => {
+        
+        //const loggedInUser = !!this.tokenStorage.getUser();
+        const chatId = 123;
+        this.router.navigate(['user', chatId, 'profile']).then(() => {
           window.location.reload();
         });
       },
