@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './services/token-storage.service';
 import { UserService } from './services/user.service';
 

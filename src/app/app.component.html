@@ -1,4 +1,5 @@
 <div class="app">
+  <!-- TODO: move to component -->
   <nav class="navbar fixed-top navbar-expand">
     <!-- Hamburger menu button   -->
     <button mat-button class="menu-button" (click)="sidenav.toggle()" *ngIf="isLoggedIn">
@@ -38,12 +39,10 @@
 
   <mat-sidenav-container class="sidenav-container">
     <!-- Left side panel -->
-    <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav"
-      (click)="onSidenavClick()">
-      <a mat-button routerLink="user/{{getChatId()}}/profile">Личный кабинет</a>
-      <a mat-button>Мои расходы</a>
-      <a mat-button>Статистика расходов</a>
+    <mat-sidenav #sidenav mode="over" [(opened)]="isMenuOpen">
+      <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>
+
     <mat-sidenav-content>
       <!-- Page content -->
       <main>
@@ -51,4 +50,6 @@
       </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+
 </div>
