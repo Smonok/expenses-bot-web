@@ -17,14 +17,13 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+
     }
   }
 
@@ -38,9 +37,8 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        
-        //const loggedInUser = !!this.tokenStorage.getUser();
-        const chatId = 123;
+
+        const chatId = this.tokenStorage.getUser().chatId;
         this.router.navigate(['user', chatId, 'profile']).then(() => {
           window.location.reload();
         });

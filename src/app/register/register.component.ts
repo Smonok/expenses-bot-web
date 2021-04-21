@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -17,9 +20,9 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
   }
 
   onSubmit(): void {
@@ -30,6 +33,9 @@ export class RegisterComponent implements OnInit {
         console.log("data: ", data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+
+        this.showSuccess();
+        this.router.navigate(['login']);
       },
       err => {
         console.log("err: ", err);
@@ -37,5 +43,9 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+
+  showSuccess() {
+    this.toastr.success('Войдите в аккаунт', 'Регистрация успешна!');
   }
 }
