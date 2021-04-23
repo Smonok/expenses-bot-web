@@ -1,20 +1,27 @@
 <mat-nav-list>
-
-    <a mat-list-item routerLink="user/{{getChatId()}}/profile" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="user/{{chatId}}/profile" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon><span class="nav-caption">Личный кабинет</span>
     </a>
 
-    <mat-list-item [matMenuTriggerFor]="expensesMenu">
-        <mat-icon>unfold_more</mat-icon><span class="nav-caption">Мои расходы</span>
-    </mat-list-item>
-    <mat-menu #expensesMenu="matMenu">
-        <button mat-menu-item (click)="onSidenavClose()">View profile</button>
-        <button mat-menu-item (click)="onSidenavClose()">Add contact</button>
-    </mat-menu>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <!-- Header -->
+            <mat-expansion-panel-header>
+                <mat-icon>money_off</mat-icon><span class="nav-caption">Мои расходы</span>
+            </mat-expansion-panel-header>
+            <!-- Sub menues -->
+            <div *ngFor="let category of categories">
+                <!-- routerLink="user/{{category.toLowerCase()}}/expenses" -->
+                <a mat-list-item (click)="onSidenavClose()">
+                    <mat-icon>arrow_right</mat-icon>
+                    <span class="submenu">{{category}}</span>
+                </a>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
 
     <a mat-list-item (click)="onSidenavClose()">
         <mat-icon>show_chart</mat-icon>
         <span class="nav-caption">Статистика расходов</span>
     </a>
-
 </mat-nav-list>

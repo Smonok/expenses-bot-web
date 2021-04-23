@@ -13,12 +13,16 @@ a:active {
     padding-left: 6px;
 }
 
-mat-list-item {
+mat-list-item,
+mat-expansion-panel {
     //background-color: #79bd9a;
     margin-top: 5%;
 }
 
-mat-menu {
-    margin-left: 55%;
-    margin-right: 55%;
+.submenu {
+    font-size: smaller;
+}
+
+mat-expansion-panel-header {
+    padding-left: 8%;
 }

@@ -11,13 +11,11 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { MaterialModule } from './material/material.module';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatListModule } from '@angular/material/list';
+import { SidenavListComponent } from  './navigation/sidenav-list/sidenav-list.component';
 
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +25,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     HomeComponent,
     ProfileComponent,
     BoardUserComponent,
-    SidenavListComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +33,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     FormsModule,
     MaterialModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatListModule,
+    BrowserAnimationsModule,    
     ToastrModule.forRoot()
   ],
   providers: [authInterceptorProviders],
