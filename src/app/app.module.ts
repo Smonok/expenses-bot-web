@@ -16,17 +16,19 @@ import { SidenavListComponent } from  './navigation/sidenav-list/sidenav-list.co
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ExpensesComponent } from './expenses/expenses.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
     BoardUserComponent,
-    SidenavListComponent
-  ],
+    SidenavListComponent,
+      ExpensesComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

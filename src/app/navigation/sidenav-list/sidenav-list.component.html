@@ -9,10 +9,15 @@
             <mat-expansion-panel-header>
                 <mat-icon>money_off</mat-icon><span class="nav-caption">Мои расходы</span>
             </mat-expansion-panel-header>
-            <!-- Sub menues -->
+            <!-- => Sub menues <= -->
+            <!-- Summary category -->
+            <a mat-list-item (click)="onCategoryClick('Суммарно')">
+                <mat-icon>arrow_right</mat-icon>
+                <span class="submenu">Все категории</span>
+            </a>
+            <!-- All created by user categories -->
             <div *ngFor="let category of categories">
-                <!-- routerLink="user/{{category.toLowerCase()}}/expenses" -->
-                <a mat-list-item (click)="onSidenavClose()">
+                <a mat-list-item (click)="onCategoryClick(category)">
                     <mat-icon>arrow_right</mat-icon>
                     <span class="submenu">{{category}}</span>
                 </a>

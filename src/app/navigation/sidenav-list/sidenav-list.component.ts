@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { TokenStorageService } from '../../services/token-storage.service';
 import { UserService } from '../../services/user.service';
@@ -14,7 +15,7 @@ export class SidenavListComponent implements OnInit {
   categories: string[] = [];
   isLoggedIn = false;
 
-  constructor(private tokenStorageService: TokenStorageService, private userService: UserService) { }
+  constructor(private tokenStorageService: TokenStorageService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -36,6 +37,14 @@ export class SidenavListComponent implements OnInit {
 
       console.log("categories: ", this.categories);
     }
+  }
+
+  public onCategoryClick = (category: string) => {
+    this.onSidenavClose();
+
+    this.router.navigate(['user', this.chatId, category, 'expenses']).then(() => {
+      window.location.reload();
+    });
   }
 
   public onSidenavClose = () => {

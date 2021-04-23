@@ -7,12 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { AboutComponent } from './about/about.component';
+import { ExpensesComponent } from './expenses/expenses.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user/:chatId/profile', component: ProfileComponent },
+  { path: 'user/:chatId/:category/expenses', component: ExpensesComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'about', component: AboutComponent },
   { path: '', redirectTo: 'about', pathMatch: 'full' }
