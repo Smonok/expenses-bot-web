@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-
     }
   }
 
@@ -32,7 +31,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password).subscribe(
       data => {
-        console.log("data.accessToken = " + data.token);
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './services/token-storage.service';
 import { UserService } from './services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   showModeratorBoard = false;
   isMenuOpen: boolean = false;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -37,26 +38,4 @@ export class AppComponent implements OnInit {
   public getChatId() {
     return this.chatId;
   }
-
-  private substr(s: string, prefix: string, suffix: string) {
-    let i = s.indexOf(prefix);
-    if (i >= 0) {
-      s = s.substring(i + prefix.length);
-    }
-    else {
-      return '';
-    }
-
-    if (suffix) {
-      i = s.indexOf(suffix);
-      if (i >= 0) {
-        s = s.substring(0, i);
-      }
-      else {
-        return '';
-      }
-    }
-
-    return s;
-  };
 }

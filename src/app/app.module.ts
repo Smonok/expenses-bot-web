@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { MaterialModule } from './material/material.module';
-import { SidenavListComponent } from  './navigation/sidenav-list/sidenav-list.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ExpensesComponent } from './expenses/expenses.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -27,15 +27,15 @@ import { ExpensesComponent } from './expenses/expenses.component';
     ProfileComponent,
     BoardUserComponent,
     SidenavListComponent,
-      ExpensesComponent
-   ],
+    ExpensesComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     MaterialModule,
     HttpClientModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
   providers: [authInterceptorProviders],

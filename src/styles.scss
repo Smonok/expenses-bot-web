@@ -2,6 +2,7 @@
 @import '~ngx-toastr/toastr';
 
 .navbar {
+    //display: flex;
     background: #3b8686;
     font-size: large;
 }
@@ -16,6 +17,7 @@ body {
     height: 100%;
 }
 body {
+    //display: flex;
     margin: 0;
     font-family: OCR A Std, monospace;
     font-size: medium;

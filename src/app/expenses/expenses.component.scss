@@ -1,0 +1,46 @@
+h3, h5 {
+    text-align: center;
+    color: #424242;
+}
+
+table {
+    width: 100%;
+    //background-color: #e2fbfb;
+}
+
+.mat-cell {
+    //color: #424242;
+}
+
+.mat-header-cell {
+    font-size: medium;
+    //color: #424242;
+}
+
+.mat-paginator {
+    //background-color: #e2fbfb;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #7bcccc !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #3b8686 !important;
+}
+
+td,
+th {
+    width: 25%;
+}
+
+mat-label {
+    color: #424242;
+}
