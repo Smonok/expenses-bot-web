@@ -11,16 +11,58 @@
             </mat-expansion-panel-header>
             <!-- => Sub menues <= -->
             <!-- Summary category -->
-            <a mat-list-item (click)="onCategoryClick('Суммарно')">
-                <mat-icon>arrow_right</mat-icon>
-                <span class="submenu">Все категории</span>
-            </a>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <!-- Header -->
+                    <mat-expansion-panel-header>
+                        <mat-icon>arrow_right</mat-icon><span class="nav-caption">Все категории</span>
+                    </mat-expansion-panel-header>
+
+                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'all-time')">
+                        <mat-icon>arrow_right</mat-icon>
+                        <span class="submenu">Всё время</span>
+                    </a>
+                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'half-year')">
+                        <mat-icon>arrow_right</mat-icon>
+                        <span class="submenu">Пол года</span>
+                    </a>
+                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'thirty-days')">
+                        <mat-icon>arrow_right</mat-icon>
+                        <span class="submenu">30 дней</span>
+                    </a>
+                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'seven-days')">
+                        <mat-icon>arrow_right</mat-icon>
+                        <span class="submenu">7 дней</span>
+                    </a>
+                </mat-expansion-panel>
+            </mat-accordion>
             <!-- All created by user categories -->
             <div *ngFor="let category of categories">
-                <a mat-list-item (click)="onCategoryClick(category)">
-                    <mat-icon>arrow_right</mat-icon>
-                    <span class="submenu">{{category}}</span>
-                </a>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <!-- Header -->
+                        <mat-expansion-panel-header>
+                            <mat-icon>arrow_right</mat-icon><span class="nav-caption">{{category}}</span>
+                        </mat-expansion-panel-header>
+
+                        <a mat-list-item (click)="onCategoryClick(category, 'all-time')">
+                            <mat-icon>arrow_right</mat-icon>
+                            <span class="submenu">Всё время</span>
+                        </a>
+                        <a mat-list-item (click)="onCategoryClick(category, 'half-year')">
+                            <mat-icon>arrow_right</mat-icon>
+                            <span class="submenu">Пол года</span>
+                        </a>
+                        <a mat-list-item (click)="onCategoryClick(category, 'thirty-days')">
+                            <mat-icon>arrow_right</mat-icon>
+                            <span class="submenu">30 дней</span>
+                        </a>
+                        <a mat-list-item (click)="onCategoryClick(category, 'seven-days')">
+                            <mat-icon>arrow_right</mat-icon>
+                            <span class="submenu">7 дней</span>
+                        </a>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </div>
         </mat-expansion-panel>
     </mat-accordion>

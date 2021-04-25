@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user/:chatId/profile', component: ProfileComponent },
-  { path: 'user/:chatId/:category/expenses', component: ExpensesComponent },
+  { path: 'user/:chatId/:category/expenses/:period', component: ExpensesComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'about', component: AboutComponent },
   { path: '', redirectTo: 'about', pathMatch: 'full' }
