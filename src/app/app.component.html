@@ -6,27 +6,34 @@
       <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
     </button>
 
-    <!-- Link to telegram bot -->
-    <a href="https://web.telegram.org/#/im?p=@expenses_track_bot" target="_blank"
-      class="navbar-brand">@expenses_track_bot</a>
+    <div class="bot-reference">
+      <img id="bot-img" src="../assets/images/bot-logo.png" class="bot-img-logo" />
+      <!-- Link to telegram bot -->
+      <a href="https://web.telegram.org/#/im?p=@expenses_track_bot" target="_blank"
+        class="bot-link navbar-brand">@expenses_track_bot</a>
+    </div>
 
     <!-- About -->
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+    <ul class="navbar-nav ml-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="/about" class="nav-link" routerLink="about" *ngIf="!isLoggedIn">About</a>
-        <a href="profile/about" class="nav-link" routerLink="about" *ngIf="isLoggedIn">About</a>
+        <a href="/about" class="nav-link" routerLink="about" *ngIf="!isLoggedIn">Про бота</a>
+        <a href="/profile/about" class="nav-link" routerLink="about" *ngIf="isLoggedIn">Про бота</a>
       </li>
     </ul>
 
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+    <ul class="col-md-2 navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <!-- SignUp -->
-      <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Регистрация</a>
-      </li>
+      <div class=" register-button">
+        <li class=" nav-item">
+          <a href="/register" class="nav-link" routerLink="register">Регистрация</a>
+        </li>
+      </div>
       <!-- SignIn -->
-      <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Вход</a>
-      </li>
+      <div class="login-button">
+        <li class="nav-item">
+          <a href="/login" class="nav-link" routerLink="login">Вход</a>
+        </li>
+      </div>
     </ul>
 
     <!-- LogOut -->
