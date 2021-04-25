@@ -2,9 +2,11 @@
   <!-- TODO: move to component -->
   <nav class="navbar fixed-top navbar-expand">
     <!-- Hamburger menu button   -->
-    <button mat-button class="menu-button" (click)="sidenav.toggle()" *ngIf="isLoggedIn">
-      <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
-    </button>
+    <div class="menu-button">
+      <button mat-button (click)="sidenav.toggle()" *ngIf="isLoggedIn">
+        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
+    </div>
 
     <div class="bot-reference">
       <img id="bot-img" src="../assets/images/bot-logo.png" class="bot-img-logo" />
@@ -23,7 +25,7 @@
 
     <ul class="col-md-2 navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <!-- SignUp -->
-      <div class=" register-button">
+      <div class="register-button">
         <li class=" nav-item">
           <a href="/register" class="nav-link" routerLink="register">Регистрация</a>
         </li>
@@ -35,18 +37,19 @@
         </li>
       </div>
     </ul>
-
     <!-- LogOut -->
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <li class="nav-item">
-        <a href class="nav-link" (click)="logout()">Выйти</a>
-      </li>
+    <ul class="col-md-1 navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <div class="logout-button">
+        <li class="nav-item">
+          <a href class="nav-link" (click)="logout()">Выйти</a>
+        </li>
+      </div>
     </ul>
   </nav>
 
   <mat-sidenav-container class="sidenav-container">
     <!-- Left side panel -->
-    <mat-sidenav #sidenav mode="over" [(opened)]="isMenuOpen">
+    <mat-sidenav #sidenav mode="side" [(opened)]="isMenuOpen">
       <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>
 
