@@ -23,12 +23,8 @@ export class SubexpensesService {
 
   constructor(private http: HttpClient) { }
 
-  findAllByChatIdAndCategory(chatId: string, category: string): Observable<SubexpensesData[]> {
-    let params = new HttpParams();
-    params = params.append('chatId', chatId);
-    params = params.append('category', category);
-
-    return this.http.get<SubexpensesData[]>(API_URL + 'category', { params });
+  findAllByChatIdAndCategory(request: ExpensesOverTimePeriodRequest): Observable<SubexpensesData[]> {
+    return this.http.post<SubexpensesData[]>(API_URL + 'category', request);
   }
 
   computeTotalExpensesOverTimePeriod(request: ExpensesOverTimePeriodRequest): Observable<number> {

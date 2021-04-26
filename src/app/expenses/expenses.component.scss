@@ -16,20 +16,28 @@ h5 {
 
 table {
     width: 100%;
-    //background-color: #e2fbfb;
+    background-color: #a5bdbd;
+    text-align: center;
 }
 
 .mat-cell {
-    //color: #424242;
+    color: #424242;
+}
+
+::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
 }
 
 .mat-header-cell {
+    background-color: #8fa7a7;
     font-size: medium;
-    //color: #424242;
+    color: #424242;
 }
 
 .mat-paginator {
-    //background-color: #e2fbfb;
+    background-color: #8fa7a7;
+    color: #424242;
 }
 
 .mat-form-field {

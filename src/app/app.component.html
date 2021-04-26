@@ -2,8 +2,8 @@
   <!-- TODO: move to component -->
   <nav class="navbar fixed-top navbar-expand">
     <!-- Hamburger menu button   -->
-    <div class="menu-button">
-      <button mat-button (click)="sidenav.toggle()" *ngIf="isLoggedIn">
+    <div class="menu-button" *ngIf="isLoggedIn">
+      <button mat-button (click)="sidenav.toggle()">
         <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
       </button>
     </div>

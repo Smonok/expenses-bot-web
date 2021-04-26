@@ -35,11 +35,17 @@ export class ExpensesComponent implements AfterViewInit {
     this.currentCategory = this.route.snapshot.paramMap.get('category') || "";
     this.currentChatId = this.route.snapshot.paramMap.get('chatId') || "";
     this.initTable();
-    this.computeTotalExpensesOverTimePeriod('100 year');
+    this.computeTotalExpensesOverTimePeriod();
   }
 
   initTable() {
-    this.subexpensesService.findAllByChatIdAndCategory(this.currentChatId, this.currentCategory).subscribe(
+    const request = {
+      chatId: parseInt(this.currentChatId),
+      category: this.currentCategory,
+      timePeriod: this.getTimePeriod()
+    }
+
+    this.subexpensesService.findAllByChatIdAndCategory(request).subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -60,7 +66,8 @@ export class ExpensesComponent implements AfterViewInit {
     }
   }
 
-  computeTotalExpensesOverTimePeriod(timePeriod: string) {
+  computeTotalExpensesOverTimePeriod() {
+    const timePeriod = this.getTimePeriod();
     const request = {
       chatId: parseInt(this.currentChatId),
       category: this.currentCategory,
@@ -75,5 +82,20 @@ export class ExpensesComponent implements AfterViewInit {
         console.error("Cannot compute total expenses: ", err);
       }
     );
+  }
+
+  private getTimePeriod() {
+    const pathPeriod = this.route.snapshot.paramMap.get('period') || '';
+
+    switch (pathPeriod) {
+      case 'six-month':
+        return '6 month';
+      case 'thirty-days':
+        return '30 days';
+      case 'seven-days':
+        return '7 days';
+      default:
+        return '100 year';
+    }
   }
 }
