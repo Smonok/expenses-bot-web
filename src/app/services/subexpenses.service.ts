@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SubexpensesData } from '../model/subexpenses-data';
 
 const API_URL = 'http://localhost:8080/api/subexpenses/';
 
-export interface SubexpensesData {
-  subexpenses: number;
-  reasons: string;
-  date: string;
+export interface MonthSubexpensesData {
+  allMonths: boolean,
+  monthYear: string,
+  sum: number,
+  subexpensesDto: SubexpensesData[]
 }
 
 export interface ExpensesOverTimePeriodRequest {
   chatId: number,
-  category: string;
-  timePeriod: string;
+  category: string,
+  timePeriod: string
 }
 
 @Injectable({
@@ -29,5 +31,9 @@ export class SubexpensesService {
 
   computeTotalExpensesOverTimePeriod(request: ExpensesOverTimePeriodRequest): Observable<number> {
     return this.http.post<number>(API_URL + 'total', request);
+  }
+
+  findAllOverTimePeriodWithMonths(request: ExpensesOverTimePeriodRequest): Observable<MonthSubexpensesData[]> {
+    return this.http.post<MonthSubexpensesData[]>(API_URL + 'months', request);
   }
 }

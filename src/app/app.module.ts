@@ -17,9 +17,12 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ExpensesComponent } from './expenses/expenses.component';
+import { SubexpensesService, MonthSubexpensesData } from './services/subexpenses.service';
+import { ExpensesTableComponent } from './expenses-table/expenses-table.component';
+
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -27,8 +30,9 @@ import { ExpensesComponent } from './expenses/expenses.component';
     ProfileComponent,
     BoardUserComponent,
     SidenavListComponent,
-    ExpensesComponent
-  ],
+    ExpensesComponent,
+    ExpensesTableComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,7 +42,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, SubexpensesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
