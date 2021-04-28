@@ -48,64 +48,31 @@ export class ExpensesComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    // this.etc.setTableData(this.monthsExpenses[0].subexpensesDto);
-    // console.log(this.monthsExpenses)
-
-    // const request = {
-    //   chatId: parseInt(this.currentChatId),
-    //   category: this.currentCategory,
-    //   timePeriod: this.getTimePeriod()
-    // }
-
-    // this.subexpensesService.findAllOverTimePeriodWithMonths(request).subscribe(
-    //   (expenses: MonthSubexpensesData[]) => {
-    //     expenses.forEach(data => {
-    //       const tmp = {
-    //         exp: data,
-    //         datasource: new MatTableDataSource(data.subexpensesDto)
-    //       }
-
-    //       this.monthsExpenses.push(tmp);
-    //     });
-
-    //   },
-    //   (error: any) => this.errorMessage = <any>error
-    // );
+  ngOnInit(): void {
 
   }
 
-  // ngAfterViewInit() {
-  //   this.monthsExpenses.forEach(exp => {
-  //     setTimeout(() => exp.datasource.paginator = this.paginator);
-  //     setTimeout(() => exp.datasource.sort = this.paginator);
-  //   });
+  formatedDateByMonthYear(monthYear: string): string {
+    if (!monthYear.includes('.')) {
+      return '';
+    }
 
-  //   console.log("this.paginator: ", this.paginator);
+    var dotIndex = monthYear.lastIndexOf('.');
+    const year = monthYear.substring(dotIndex + 1);
+    const monthNumber = parseInt(monthYear.substr(0, dotIndex));
+    const month = this.monthNameByNumber(monthNumber);
 
-  //   // this.dataSource.paginator = this.paginator;
-  //   // this.dataSource.sort = this.sort;
-  // }
-
-  initTable() {
-    // const request = {
-    //   chatId: parseInt(this.currentChatId),
-    //   category: this.currentCategory,
-    //   timePeriod: this.getTimePeriod()
-    // }
-
-    // this.subexpensesService.findAllOverTimePeriodWithMonths(request).subscribe(
-    //   (expenses: MonthSubexpensesData[]) => {
-    //     this.monthsExpenses = expenses;
-    //     //this.dataSource = new MatTableDataSource(expenses);
-    //     //this.dataSource.paginator = this.paginator;
-    //     //this.dataSource.sort = this.sort;
-    //     // Any code to be run after the subscription is complete goes here
-    //   },
-    //   (error: any) => this.errorMessage = <any>error
-    // );
+    return month + ', ' + year;
   }
 
+  private monthNameByNumber(num: number): string {
+    var monthNames = ['Январь', 'Февраль', 'Март',
+      'Апрель', 'Май', 'Июнь',
+      'Июль', 'Август', 'Сентябрь',
+      'Октябрь', 'Ноябрь', 'Декабрь'];
+
+    return monthNames[num - 1];
+  }
 
   private getTimePeriod() {
     const pathPeriod = this.route.snapshot.paramMap.get('period') || '';

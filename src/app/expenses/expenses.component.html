@@ -10,7 +10,7 @@
     </div>
     <div *ngIf="!item.allMonths">
       <h3>
-        Расходы за '{{item.monthYear}}'
+        Расходы за '{{formatedDateByMonthYear(item.monthYear)}}'
       </h3>
       <h5>
         Общая сумма: {{item.sum}}
