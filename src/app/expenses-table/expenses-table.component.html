@@ -24,6 +24,12 @@
       <td mat-cell *matCellDef="let row"> {{row.date}} </td>
     </ng-container>
 
+    <!-- Categry Column -->
+    <ng-container *ngIf="showCategory" matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Категория </th>
+      <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

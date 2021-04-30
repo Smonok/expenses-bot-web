@@ -1,4 +1,12 @@
 <mat-nav-list>
+    <!-- Welcome header gravatarId="adde9b2b981a8083cf084c63ad86f753" -->
+    <div class="welcome">
+        <ngx-avatar name="{{user.name}}" 
+            src="assets/avatar.jpg" value="28%" twitterId="twitter" size="100" [round]="true" >
+        </ngx-avatar>
+        <h4>Добро пожаловать, {{user.name}}!</h4>
+    </div>
+
     <a mat-list-item routerLink="user/{{chatId}}/profile" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon><span class="nav-caption">Личный кабинет</span>
     </a>
@@ -18,19 +26,19 @@
                         <mat-icon>arrow_right</mat-icon><span class="nav-caption">Все категории</span>
                     </mat-expansion-panel-header>
 
-                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'all-time')">
+                    <a mat-list-item (click)="onCategoryClick('summary', 'all-time')">
                         <mat-icon>timeline</mat-icon>
                         <span class="submenu">Всё время</span>
                     </a>
-                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'six-month')">
+                    <a mat-list-item (click)="onCategoryClick('summary', 'six-month')">
                         <mat-icon>timeline</mat-icon>
                         <span class="submenu">Пол года</span>
                     </a>
-                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'thirty-days')">
+                    <a mat-list-item (click)="onCategoryClick('summary', 'thirty-days')">
                         <mat-icon>timeline</mat-icon>
                         <span class="submenu">30 дней</span>
                     </a>
-                    <a mat-list-item (click)="onCategoryClick('Суммарно', 'seven-days')">
+                    <a mat-list-item (click)="onCategoryClick('summary', 'seven-days')">
                         <mat-icon>timeline</mat-icon>
                         <span class="submenu">7 дней</span>
                     </a>

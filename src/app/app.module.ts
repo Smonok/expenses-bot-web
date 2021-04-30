@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AvatarModule } from 'ngx-avatar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BoardUserComponent } from './board-user/board-user.component';
 import { MaterialModule } from './material/material.module';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
@@ -22,17 +21,15 @@ import { ExpensesTableComponent } from './expenses-table/expenses-table.componen
 
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
     ProfileComponent,
-    BoardUserComponent,
     SidenavListComponent,
     ExpensesComponent,
     ExpensesTableComponent
-   ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +37,7 @@ import { ExpensesTableComponent } from './expenses-table/expenses-table.componen
     MaterialModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AvatarModule,
     ToastrModule.forRoot()
   ],
   providers: [authInterceptorProviders, SubexpensesService],

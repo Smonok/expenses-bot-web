@@ -12,17 +12,20 @@ import { SubexpensesData } from '../model/subexpenses-data';
 })
 export class ExpensesTableComponent implements OnInit, AfterViewInit {
   @Input() tableData: SubexpensesData[] = [];
-  displayedColumns: string[] = ['subexpenses', 'reasons', 'date'];
+  @Input() showCategory: boolean = false;
+  displayedColumns: string[] = [];
   dataSource!: MatTableDataSource<SubexpensesData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
+
   }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.tableData);
+    this.displayedColumns = this.showCategory ? ['subexpenses', 'reasons', 'date', 'category'] : ['subexpenses', 'reasons', 'date'];
   }
 
   ngAfterViewInit() {

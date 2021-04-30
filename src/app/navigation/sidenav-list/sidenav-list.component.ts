@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { AvatarModule } from 'ngx-avatar';
 
 import { TokenStorageService } from '../../services/token-storage.service';
 import { UserService } from '../../services/user.service';
@@ -14,6 +15,7 @@ export class SidenavListComponent implements OnInit {
   chatId!: number;
   categories: string[] = [];
   isLoggedIn = false;
+  user!: any;
 
   constructor(private tokenStorageService: TokenStorageService, private userService: UserService, private router: Router) { }
 
@@ -21,12 +23,12 @@ export class SidenavListComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.chatId = user.chatId;
+      this.user = this.tokenStorageService.getUser();
+      this.chatId = this.user.chatId;
 
-      console.log("token: ", user.token);
+      console.log("token: ", this.user.token);
 
-      this.userService.getCategoriesByChatId(user.chatId).subscribe(
+      this.userService.getCategoriesByChatId(this.user.chatId).subscribe(
         data => {
           this.categories = data;
         },

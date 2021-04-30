@@ -19,16 +19,16 @@ export interface SubexpensesData {
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss']
 })
-export class ExpensesComponent implements OnInit {
+export class ExpensesComponent {
   errorMessage!: string;
   currentCategory!: string;
   currentChatId!: string;
-  displayedColumns: string[] = ['subexpenses', 'reasons', 'date'];
   monthsExpenses: any[] = [];
   etc = new ExpensesTableComponent();
 
   constructor(private route: ActivatedRoute, private subexpensesService: SubexpensesService) {
     this.currentCategory = this.route.snapshot.paramMap.get('category') || "";
+    this.currentCategory = this.currentCategory === 'summary' ? '%' : this.currentCategory
     this.currentChatId = this.route.snapshot.paramMap.get('chatId') || "";
 
     const request = {
@@ -46,10 +46,6 @@ export class ExpensesComponent implements OnInit {
       },
       (error: any) => this.errorMessage = <any>error
     );
-  }
-
-  ngOnInit(): void {
-
   }
 
   formatedDateByMonthYear(monthYear: string): string {

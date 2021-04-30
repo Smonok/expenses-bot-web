@@ -1,11 +1,14 @@
 table {
     width: 100%;
-    background-color: #a5bdbd;
+    //background-color: #a5bdbd;
+    background-color: #334252;
+
     text-align: center;
 }
 
 .mat-cell {
-    color: #424242;
+    // color: #424242;
+    color: rgb(215, 215, 215);;
 }
 
 ::ng-deep .mat-sort-header-container {
@@ -14,14 +17,16 @@ table {
 }
 
 .mat-header-cell {
-    background-color: #8fa7a7;
+    //background-color: #8fa7a7;
+    background-color: #364857;
+
     font-size: medium;
-    color: #424242;
+    //color: #424242;
 }
 
 .mat-paginator {
-    background-color: #8fa7a7;
-    color: #424242;
+    background-color: #364857;
+    //color: #424242;
 }
 
 .mat-form-field {
