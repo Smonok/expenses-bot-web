@@ -1,15 +1,13 @@
 @import "~hamburgers/_sass/hamburgers/hamburgers.scss";
 @import "~ngx-toastr/toastr";
+@import "styles-variables";
 
 .navbar {
-    //display: flex;
-    background: #364857; // #3b8686;
-    font-size: large;
+    background: #364857;
 }
 
 .navbar a {
     color: white;
-    font-size: large;
 }
 
 html,
@@ -17,11 +15,11 @@ body {
     height: 100%;
 }
 body {
-    //display: flex;
     margin: 0;
     font-family: OCR A Std, monospace;
     font-size: medium;
     margin-top: 3.5%;
     overflow-x: hidden;
     overflow-y: hidden;
+    background-color: #364857;
 }

@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AvatarModule } from 'ngx-avatar';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -23,6 +25,7 @@ import { ExpensesTableComponent } from './expenses-table/expenses-table.componen
 @NgModule({
   declarations: [
     AppComponent,
+    AboutComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
@@ -38,7 +41,8 @@ import { ExpensesTableComponent } from './expenses-table/expenses-table.componen
     HttpClientModule,
     BrowserAnimationsModule,
     AvatarModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MDBBootstrapModule.forRoot()
   ],
   providers: [authInterceptorProviders, SubexpensesService],
   bootstrap: [AppComponent]

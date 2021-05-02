@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
 
 const modules = [MatSidenavModule,
     MatIconModule,
@@ -27,6 +28,7 @@ const modules = [MatSidenavModule,
     MatTableModule,
     MatInputModule,
     MatSortModule,
+    MatCardModule,
     MatFormFieldModule
 ];
 

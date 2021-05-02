@@ -9,11 +9,6 @@ a:active {
     color: lightgray;
 }
 
-.nav-caption {
-    display: inline-block;
-    padding-left: 6px;
-}
-
 mat-nav-list {
     background-color: #334252;
     text-align: center;
@@ -53,4 +48,8 @@ mat-expansion-panel {
 ngx-avatar {
     text-align: center;
     display: inline-block;
+}
+
+.footer {
+    height: 10vh;
 }

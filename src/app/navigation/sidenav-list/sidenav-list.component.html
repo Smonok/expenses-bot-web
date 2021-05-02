@@ -1,8 +1,8 @@
-<mat-nav-list>
+<mat-nav-list *ngIf="isLoggedIn">
     <!-- Welcome header gravatarId="adde9b2b981a8083cf084c63ad86f753" -->
     <div class="welcome">
-        <ngx-avatar name="{{user.name}}" 
-            src="assets/avatar.jpg" value="28%" twitterId="twitter" size="100" [round]="true" >
+        <ngx-avatar name="{{user.name}}" src="assets/avatar.jpg" value="28%" twitterId="twitter" size="100"
+            [round]="true">
         </ngx-avatar>
         <h4>Добро пожаловать, {{user.name}}!</h4>
     </div>
@@ -78,4 +78,6 @@
         <mat-icon>show_chart</mat-icon>
         <span class="nav-caption">Статистика расходов</span>
     </a>
+
+    <div class="footer"></div>
 </mat-nav-list>

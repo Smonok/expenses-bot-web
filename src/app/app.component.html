@@ -2,44 +2,50 @@
   <!-- TODO: move to component -->
   <nav class="navbar fixed-top navbar-expand">
     <!-- Hamburger menu button   -->
-    <div class="menu-button" *ngIf="isLoggedIn">
+    <div class="menu-button col-md-1" *ngIf="isLoggedIn">
       <button mat-button (click)="sidenav.toggle()">
         <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
       </button>
     </div>
 
-    <div class="bot-reference">
-      <img id="bot-img" src="../assets/images/bot-logo.png" class="bot-img-logo" />
-      <!-- Link to telegram bot -->
-      <a href="https://web.telegram.org/#/im?p=@expenses_track_bot" target="_blank"
-        class="bot-link navbar-brand">@expenses_track_bot</a>
+    <div class="col-md-6">
+      <div class="bot-reference col-md-6">
+        <img id="bot-img" src="../assets/images/bot-logo.png" class="bot-img-logo" />
+        <!-- Link to telegram bot -->
+        <a href="https://web.telegram.org/#/im?p=@expenses_track_bot" target="_blank"
+          class="bot-link navbar-brand">@expenses_track_bot</a>
+      </div>
     </div>
 
     <!-- About -->
-    <ul class="navbar-nav ml-auto" routerLinkActive="active">
-      <li class="nav-item">
-        <a href="/about" class="nav-link" routerLink="about" *ngIf="!isLoggedIn">Про бота</a>
-        <a href="/profile/about" class="nav-link" routerLink="about" *ngIf="isLoggedIn">Про бота</a>
-      </li>
+    <ul class="navbar-nav col-md-2" routerLinkActive="active">
+      <div class="about-button">
+        <li class="nav-item">
+          <a href="/about" class="nav-link" routerLink="about">Про бота</a>
+        </li>
+      </div>
     </ul>
 
-    <ul class="col-md-2 navbar-nav ml-auto" *ngIf="!isLoggedIn">
+    <ul class="col-md-4 navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <div class="col-md"></div>
       <!-- SignUp -->
-      <div class="register-button">
-        <li class=" nav-item">
+      <div class="col-md-6 auth-button register-button">
+        <li class="nav-item">
           <a href="/register" class="nav-link" routerLink="register">Регистрация</a>
         </li>
       </div>
       <!-- SignIn -->
-      <div class="login-button">
+      <div class="col-md-6 auth-button login-button">
         <li class="nav-item">
           <a href="/login" class="nav-link" routerLink="login">Вход</a>
         </li>
       </div>
     </ul>
+
     <!-- LogOut -->
-    <ul class="col-md-1 navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <div class="logout-button">
+    <ul class="col-md-2 navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <div class="col-md-6"></div>
+      <div class="auth-button logout-button col-md-6">
         <li class="nav-item">
           <a href class="nav-link" (click)="logout()">Выйти</a>
         </li>
@@ -60,6 +66,4 @@
       </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
-
 </div>
