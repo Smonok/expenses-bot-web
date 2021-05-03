@@ -1,18 +1,10 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 
 import { ExpensesTableComponent } from '../expenses-table/expenses-table.component'
-import { SubexpensesService, MonthSubexpensesData } from '../services/subexpenses.service';
-
-export interface SubexpensesData {
-  subexpenses: number;
-  reasons: string;
-  date: string;
-}
+import { SubexpensesService } from '../services/subexpenses.service';
+import { MonthSubexpensesResponse } from '../response/month-subexpenses'
+import { SubexpensesData } from '../model/subexpenses-data'
 
 @Component({
   selector: 'app-expenses',
@@ -38,7 +30,7 @@ export class ExpensesComponent {
     }
 
     this.subexpensesService.findAllOverTimePeriodWithMonths(request).subscribe(
-      (expenses: MonthSubexpensesData[]) => {
+      (expenses: MonthSubexpensesResponse[]) => {
         expenses.forEach(data => {
           this.monthsExpenses.push(data);
         });

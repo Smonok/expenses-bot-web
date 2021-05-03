@@ -1,0 +1,21 @@
+<div class="statistics-main">
+  <div class="statistics-part col-lg-12" *ngIf="categoryMonthsOrEarlier">
+    <div>
+      <h3>
+        Расходы для категории '{{currentCategory}}'
+      </h3>
+      <h5>
+        Общая сумма: {{totalSum}}
+      </h5>
+    </div>
+
+    <div style="display: block" *ngIf="chartReady">
+      <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
+        [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="footer"></div>
+</div>

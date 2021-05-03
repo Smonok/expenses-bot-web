@@ -18,8 +18,11 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ExpensesComponent } from './expenses/expenses.component';
-import { SubexpensesService, MonthSubexpensesData } from './services/subexpenses.service';
+import { SubexpensesService } from './services/subexpenses.service';
+import { MonthSubexpensesResponse } from './response/month-subexpenses';
+import { SubexpensesData } from './model/subexpenses-data';
 import { ExpensesTableComponent } from './expenses-table/expenses-table.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { ExpensesTableComponent } from './expenses-table/expenses-table.componen
     ProfileComponent,
     SidenavListComponent,
     ExpensesComponent,
-    ExpensesTableComponent
+    ExpensesTableComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

@@ -41,10 +41,10 @@ export class SidenavListComponent implements OnInit {
     }
   }
 
-  public onCategoryClick = (category: string, period: string) => {
+  public onCategoryClick = (category: string, route: string, period: string) => {
     this.onSidenavClose();
 
-    this.router.navigate(['user', this.chatId, category, 'expenses', period]).then(() => {
+    this.router.navigate(['user', this.chatId, category, route, period]).then(() => {
       window.location.reload();
     });
   }

@@ -1,22 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { SubexpensesData } from '../model/subexpenses-data';
+import { ExpensesOverTimePeriodRequest } from '../request/expenses-over-time-period';
+import { MonthSubexpensesResponse } from '../response/month-subexpenses';
+import { EveryDayExpensesResponse } from '../response/every-day-expenses';
+
 
 const API_URL = 'http://localhost:8080/api/subexpenses/';
-
-export interface MonthSubexpensesData {
-  allMonths: boolean,
-  monthYear: string,
-  sum: number,
-  subexpensesDto: SubexpensesData[]
-}
-
-export interface ExpensesOverTimePeriodRequest {
-  chatId: number,
-  category: string,
-  timePeriod: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +25,11 @@ export class SubexpensesService {
     return this.http.post<number>(API_URL + 'total', request);
   }
 
-  findAllOverTimePeriodWithMonths(request: ExpensesOverTimePeriodRequest): Observable<MonthSubexpensesData[]> {
-    return this.http.post<MonthSubexpensesData[]>(API_URL + 'months', request);
+  findAllOverTimePeriodWithMonths(request: ExpensesOverTimePeriodRequest): Observable<MonthSubexpensesResponse[]> {
+    return this.http.post<MonthSubexpensesResponse[]>(API_URL + 'months', request);
+  }
+
+  findEveryDayExpensesSum(request: ExpensesOverTimePeriodRequest): Observable<EveryDayExpensesResponse[]> {
+    return this.http.post<EveryDayExpensesResponse[]>(API_URL + 'everyday', request);
   }
 }
