@@ -23,7 +23,8 @@ import { MonthSubexpensesResponse } from './response/month-subexpenses';
 import { SubexpensesData } from './model/subexpenses-data';
 import { ExpensesTableComponent } from './expenses-table/expenses-table.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-
+import { DaysStatisticsComponent } from './statistics/days-statistics/days-statistics.component';
+import { MonthsStatisticsComponent } from './statistics/months-statistics/months-statistics.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     SidenavListComponent,
     ExpensesComponent,
     ExpensesTableComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    DaysStatisticsComponent,
+    MonthsStatisticsComponent
   ],
   imports: [
     BrowserModule,

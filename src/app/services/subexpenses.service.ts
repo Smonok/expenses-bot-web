@@ -6,6 +6,7 @@ import { SubexpensesData } from '../model/subexpenses-data';
 import { ExpensesOverTimePeriodRequest } from '../request/expenses-over-time-period';
 import { MonthSubexpensesResponse } from '../response/month-subexpenses';
 import { EveryDayExpensesResponse } from '../response/every-day-expenses';
+import { TotalMonthExpensesResponse } from '../response/total-months-expenses';
 
 
 const API_URL = 'http://localhost:8080/api/subexpenses/';
@@ -31,5 +32,9 @@ export class SubexpensesService {
 
   findEveryDayExpensesSum(request: ExpensesOverTimePeriodRequest): Observable<EveryDayExpensesResponse[]> {
     return this.http.post<EveryDayExpensesResponse[]>(API_URL + 'everyday', request);
+  }
+
+  findTotalMonthsExpenses(request: ExpensesOverTimePeriodRequest): Observable<TotalMonthExpensesResponse[]> {
+    return this.http.post<TotalMonthExpensesResponse[]>(API_URL + 'total-months', request);
   }
 }

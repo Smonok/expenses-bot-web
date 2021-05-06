@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SubexpensesService } from '../services/subexpenses.service';
-import { MonthSubexpensesResponse } from '../response/month-subexpenses'
 import { EveryDayExpensesResponse } from '../response/every-day-expenses';
-
-export interface SubexpensesData {
-  subexpenses: number;
-  reasons: string;
-  date: string;
-}
+import { TotalMonthExpensesResponse } from '../response/total-months-expenses';
+import { PageState } from '../enums/page-state';
+import { DateUtil } from '../util/date-util';
 
 @Component({
   selector: 'app-statistics',
@@ -17,94 +13,91 @@ export interface SubexpensesData {
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent {
+  PageState = PageState;
+  DateUtil = DateUtil;
+
   chartReady: boolean = false;
   errorMessage!: string;
   currentCategory!: string;
-  currentChatId!: string;
-  monthsExpenses: any[] = [];
-  chartDatasets: any[] = [];
-  chartLabels: any[] = [];
-  everyDayExpenses: EveryDayExpensesResponse[] = [];
-  categoryMonthsOrEarlier: boolean = false;
-  totalSum: number = 0;
-  public chartType: string = 'line';
+  daysExpenses: EveryDayExpensesResponse[] = [];
+  monthsExpenses: TotalMonthExpensesResponse[] = [];
+  state!: PageState;
 
   constructor(private route: ActivatedRoute, private subexpensesService: SubexpensesService) {
-    this.currentCategory = this.route.snapshot.paramMap.get('category') || "";
-    this.currentCategory = this.currentCategory === 'summary' ? '%' : this.currentCategory
-    this.currentChatId = this.route.snapshot.paramMap.get('chatId') || "";
-    const currentPeriod = this.route.snapshot.paramMap.get('period') || '';
-    this.categoryMonthsOrEarlier = this.currentCategory !== '%' && ['seven-days', 'thirty-days'].includes(currentPeriod);
+    this.currentCategory = this.parseCurrentCategory();
+    const currentPeriod = this.parseRoute('period');
+    this.state = this.currentState(currentPeriod);
+    const request = this.initRequest(currentPeriod);
 
-    const request = {
-      chatId: parseInt(this.currentChatId),
+    this.initDaysExpenses(request);
+    this.initMonthExpenses(request);
+  }
+
+  private parseCurrentCategory(): string {
+    const category = this.parseRoute('category');
+    return category === 'summary' ? '%' : category;
+  }
+
+  private currentState(currentPeriod: string): PageState {
+    const isSummary = this.currentCategory === '%';
+    if (isSummary) {
+      const periods = ['seven-days', 'thirty-days'];
+
+      if (periods.includes(currentPeriod)) {
+        return PageState.SUMMARY_30_DAYS_OR_LESS;
+      }
+
+      return PageState.SUMMARY_YEAR_OR_LESS;
+    }
+
+    const periods = ['seven-days', 'thirty-days'];
+    if (periods.includes(currentPeriod)) {
+      return PageState.CATEGORY_30_DAYS_OR_LESS
+    }
+
+    return PageState.CATEGORY_YEAR_OR_LESS;
+  }
+
+  private initRequest(currentPeriod: string) {
+    return {
+      chatId: parseInt(this.parseRoute('chatId')),
       category: this.currentCategory,
       timePeriod: this.getTimePeriod(currentPeriod)
     }
-
-    this.subexpensesService.findEveryDayExpensesSum(request).subscribe(
-      (dayExpenses: EveryDayExpensesResponse[]) => {
-        this.everyDayExpenses = dayExpenses;
-        this.initChartDatasets();
-        this.initChartLabels();
-        this.computeTotalSum();
-        this.chartReady = true;
-      },
-      (error: any) => this.errorMessage = <any>error
-    );
   }
 
-  private initChartDatasets() {
-    this.chartDatasets = [{ data: this.everyDayExpenses.map((exp: { expenses: number; }) => exp.expenses), label: 'Ежедневные расходы' }];
+  private parseRoute(pathParam: string): string {
+    return this.route.snapshot.paramMap.get(pathParam) || '';
   }
 
-  private initChartLabels() {
-    this.chartLabels = this.everyDayExpenses.map((su: { date: any; }) => su.date);
-  }
-
-  private computeTotalSum() {
-    this.everyDayExpenses.forEach(exp => this.totalSum = exp.expenses);
-  }
-
-  public chartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
-      borderWidth: 2,
+  private initDaysExpenses(request: any) {
+    if (this.state === PageState.CATEGORY_30_DAYS_OR_LESS) {
+      this.subexpensesService.findEveryDayExpensesSum(request).subscribe(
+        (dayExpenses: EveryDayExpensesResponse[]) => {
+          this.daysExpenses = dayExpenses;
+          this.chartReady = true;
+        },
+        (error: any) => this.errorMessage = <any>error
+      );
     }
-  ];
-
-  public chartOptions: any = {
-    responsive: true
-  };
-
-  public chartClicked(e: any): void { }
-  public chartHovered(e: any): void { }
-
-  formatedDateByMonthYear(monthYear: string): string {
-    if (!monthYear.includes('.')) {
-      return '';
-    }
-
-    var dotIndex = monthYear.lastIndexOf('.');
-    const year = monthYear.substring(dotIndex + 1);
-    const monthNumber = parseInt(monthYear.substr(0, dotIndex));
-    const month = this.monthNameByNumber(monthNumber);
-
-    return month + ', ' + year;
   }
 
-  private monthNameByNumber(num: number): string {
-    var monthNames = ['Январь', 'Февраль', 'Март',
-      'Апрель', 'Май', 'Июнь',
-      'Июль', 'Август', 'Сентябрь',
-      'Октябрь', 'Ноябрь', 'Декабрь'];
-
-    return monthNames[num - 1];
+  private initMonthExpenses(request: any) {
+    if (this.state === PageState.CATEGORY_YEAR_OR_LESS) {
+      this.subexpensesService.findTotalMonthsExpenses(request).subscribe(
+        (monthExpenses: TotalMonthExpensesResponse[]) => {
+          this.monthsExpenses = monthExpenses;
+          this.chartReady = true;
+        },
+        (error: any) => this.errorMessage = <any>error
+      );
+    }
   }
 
   private getTimePeriod(pathPeriod: string) {
     switch (pathPeriod) {
+      case 'one-year':
+        return '1 year';
       case 'six-month':
         return '6 month';
       case 'thirty-days':

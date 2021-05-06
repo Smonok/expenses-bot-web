@@ -1,0 +1,14 @@
+<div>
+  <h3>
+    Расходы для категории '{{currentCategory}}'
+  </h3>
+  <h5>
+    Общая сумма: {{totalSum}}
+  </h5>
+</div>
+
+<div style="display: block">
+  <canvas mdbChart [chartType]="'line'" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
+    [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+  </canvas>
+</div>
