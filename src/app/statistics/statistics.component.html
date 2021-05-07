@@ -1,17 +1,20 @@
 <div class="statistics-main">
-  <div class="statistics-part col-lg-12" *ngIf="state === this.PageState.CATEGORY_30_DAYS_OR_LESS && chartReady">
-    <app-days-statistics [mainHeader]="'Расходы для категории \'' + currentCategory + '\''"
-      [everyDayExpenses]="this.daysExpenses" [currentCategory]="currentCategory">
+  <div class="statistics-part col-lg-12" *ngIf="period === this.TimePeriod.THIRTY_DAYS_OR_LESS && chartReady">
+    <app-days-statistics
+      [mainHeader]="currentCategory === '%' ? 'Расходы по всем категориям' : 'Расходы для категории \'' + currentCategory + '\''"
+      [everyDayExpenses]="this.daysExpenses">
     </app-days-statistics>
   </div>
-  <div class="statistics-part col-lg-12" *ngIf="state === this.PageState.CATEGORY_YEAR_OR_LESS  && chartReady">
+  <div class="statistics-part col-lg-12" *ngIf="period !== this.TimePeriod.THIRTY_DAYS_OR_LESS && chartReady">
     <app-months-statistics [monthsExpenses]="monthsExpenses" [currentCategory]="currentCategory">
     </app-months-statistics>
 
-    <div class="statistics-part col-lg-12" *ngFor="let item of monthsExpenses">
-      <app-days-statistics [mainHeader]="'Расходы за ' + DateUtil.formatedDateByMonthYear(item.monthYear)"
-        [everyDayExpenses]="item.everyDayExpenses" [currentCategory]="currentCategory">
-      </app-days-statistics>
+    <div *ngIf="period !== this.TimePeriod.ALL_TIME && chartReady">
+      <div class="statistics-part col-lg-12" *ngFor="let item of monthsExpenses">
+        <app-days-statistics [mainHeader]="'Расходы за ' + DateUtil.formatedDateByMonthYear(item.monthYear)"
+          [everyDayExpenses]="item.everyDayExpenses">
+        </app-days-statistics>
+      </div>
     </div>
   </div>
 

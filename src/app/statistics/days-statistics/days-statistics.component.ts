@@ -10,7 +10,6 @@ import { chartOptions } from '../shared/chart-options';
 })
 export class DaysStatisticsComponent implements OnInit {
   @Input() everyDayExpenses: EveryDayExpensesResponse[] = [];
-  @Input() currentCategory: string = '';
   @Input() mainHeader: string = '';
 
   chartDatasets: any[] = [];

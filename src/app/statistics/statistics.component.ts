@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SubexpensesService } from '../services/subexpenses.service';
 import { EveryDayExpensesResponse } from '../response/every-day-expenses';
 import { TotalMonthExpensesResponse } from '../response/total-months-expenses';
-import { PageState } from '../enums/page-state';
+import { TimePeriod } from '../enums/time-period';
 import { DateUtil } from '../util/date-util';
 
 @Component({
@@ -13,7 +13,7 @@ import { DateUtil } from '../util/date-util';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent {
-  PageState = PageState;
+  TimePeriod = TimePeriod;
   DateUtil = DateUtil;
 
   chartReady: boolean = false;
@@ -21,57 +21,52 @@ export class StatisticsComponent {
   currentCategory!: string;
   daysExpenses: EveryDayExpensesResponse[] = [];
   monthsExpenses: TotalMonthExpensesResponse[] = [];
-  state!: PageState;
+  period!: TimePeriod;
 
   constructor(private route: ActivatedRoute, private subexpensesService: SubexpensesService) {
-    this.currentCategory = this.parseCurrentCategory();
-    const currentPeriod = this.parseRoute('period');
-    this.state = this.currentState(currentPeriod);
-    const request = this.initRequest(currentPeriod);
+    this.currentCategory = this.parsedCurrentCategory();
+    const pathPeriod = this.parsedRoute('period');
+    this.period = this.currentState(pathPeriod);
+    const request = this.initRequest(pathPeriod);
 
     this.initDaysExpenses(request);
     this.initMonthExpenses(request);
   }
 
-  private parseCurrentCategory(): string {
-    const category = this.parseRoute('category');
+  private parsedCurrentCategory(): string {
+    const category = this.parsedRoute('category');
     return category === 'summary' ? '%' : category;
   }
 
-  private currentState(currentPeriod: string): PageState {
-    const isSummary = this.currentCategory === '%';
-    if (isSummary) {
-      const periods = ['seven-days', 'thirty-days'];
+  private currentState(pathPeriod: string): TimePeriod {
+    const shortPeriods = ['seven-days', 'thirty-days'];
 
-      if (periods.includes(currentPeriod)) {
-        return PageState.SUMMARY_30_DAYS_OR_LESS;
-      }
-
-      return PageState.SUMMARY_YEAR_OR_LESS;
+    if (shortPeriods.includes(pathPeriod)) {
+      return TimePeriod.THIRTY_DAYS_OR_LESS
     }
 
-    const periods = ['seven-days', 'thirty-days'];
-    if (periods.includes(currentPeriod)) {
-      return PageState.CATEGORY_30_DAYS_OR_LESS
+    const longPeriods = ['six-month', 'one-year'];
+    if (longPeriods.includes(pathPeriod)) {
+      return TimePeriod.YEAR_OR_LESS
     }
 
-    return PageState.CATEGORY_YEAR_OR_LESS;
+    return TimePeriod.ALL_TIME;
   }
 
   private initRequest(currentPeriod: string) {
     return {
-      chatId: parseInt(this.parseRoute('chatId')),
+      chatId: parseInt(this.parsedRoute('chatId')),
       category: this.currentCategory,
       timePeriod: this.getTimePeriod(currentPeriod)
     }
   }
 
-  private parseRoute(pathParam: string): string {
+  private parsedRoute(pathParam: string): string {
     return this.route.snapshot.paramMap.get(pathParam) || '';
   }
 
   private initDaysExpenses(request: any) {
-    if (this.state === PageState.CATEGORY_30_DAYS_OR_LESS) {
+    if (this.period === TimePeriod.THIRTY_DAYS_OR_LESS) {
       this.subexpensesService.findEveryDayExpensesSum(request).subscribe(
         (dayExpenses: EveryDayExpensesResponse[]) => {
           this.daysExpenses = dayExpenses;
@@ -83,7 +78,7 @@ export class StatisticsComponent {
   }
 
   private initMonthExpenses(request: any) {
-    if (this.state === PageState.CATEGORY_YEAR_OR_LESS) {
+    if (this.period !== TimePeriod.THIRTY_DAYS_OR_LESS) {
       this.subexpensesService.findTotalMonthsExpenses(request).subscribe(
         (monthExpenses: TotalMonthExpensesResponse[]) => {
           this.monthsExpenses = monthExpenses;

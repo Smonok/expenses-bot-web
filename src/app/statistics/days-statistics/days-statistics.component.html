@@ -1,14 +1,19 @@
 <div>
-  <h3>
-    {{mainHeader}}
-  </h3>
-  <h5>
-    Общая сумма: {{totalSum}}
-  </h5>
-</div>
+  <div>
+    <h2>
+      {{mainHeader}}
+    </h2>
+    <h5>
+      Общая сумма: {{totalSum}}
+    </h5>
+  </div>
 
-<div style="display: block">
-  <canvas mdbChart [chartType]="'line'" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
-    [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-  </canvas>
+  <div style="display: block" *ngIf="everyDayExpenses.length < 250; else tooMuchExpensesBlock">
+    <canvas mdbChart [chartType]="'line'" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
+      [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
+  <ng-template #tooMuchExpensesBlock>
+    <h3 style="color: yellow">Извините, расходов настолько много, что их невозможно вместить в график :c</h3>
+  </ng-template>
 </div>

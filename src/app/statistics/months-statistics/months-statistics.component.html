@@ -1,7 +1,10 @@
 <div>
-  <h3>
+  <h2 *ngIf="currentCategory !== '%'">
     Расходы для категории '{{currentCategory}}'
-  </h3>
+  </h2>
+  <h2 *ngIf="currentCategory === '%'">
+    Расходы по всем категориям
+  </h2>
   <h5>
     Общая сумма: {{totalSum}}
   </h5>
