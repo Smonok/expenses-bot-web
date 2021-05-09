@@ -45,7 +45,7 @@ export class StatisticsComponent {
       return TimePeriod.THIRTY_DAYS_OR_LESS
     }
 
-    const longPeriods = ['six-month', 'one-year'];
+    const longPeriods = ['half-year', 'one-year'];
     if (longPeriods.includes(pathPeriod)) {
       return TimePeriod.YEAR_OR_LESS
     }
