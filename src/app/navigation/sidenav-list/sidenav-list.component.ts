@@ -26,8 +26,6 @@ export class SidenavListComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
       this.chatId = this.user.chatId;
 
-      console.log("token: ", this.user.token);
-
       this.userService.getCategoriesByChatId(this.user.chatId).subscribe(
         data => {
           this.categories = data;
@@ -36,8 +34,6 @@ export class SidenavListComponent implements OnInit {
           console.log(JSON.parse(err.error).message);
         }
       );
-
-      console.log("categories: ", this.categories);
     }
   }
 
@@ -45,6 +41,14 @@ export class SidenavListComponent implements OnInit {
     this.onSidenavClose();
 
     this.router.navigate(['user', this.chatId, category, route, period]).then(() => {
+      window.location.reload();
+    });
+  }
+
+  public onComparisonClick = (period: string) => {
+    this.onSidenavClose();
+
+    this.router.navigate(['user', this.chatId, 'comparison', period]).then(() => {
       window.location.reload();
     });
   }

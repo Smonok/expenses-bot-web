@@ -1,7 +1,7 @@
 <mat-nav-list *ngIf="isLoggedIn">
     <!-- Welcome header gravatarId="adde9b2b981a8083cf084c63ad86f753" -->
     <div class="welcome">
-        <ngx-avatar name="{{user.name}}" src="assets/avatar.jpg" value="28%" twitterId="twitter" size="100"
+        <ngx-avatar name="{{user.name}}" value="28%" size="100"
             [round]="true">
         </ngx-avatar>
         <h4>Добро пожаловать, {{user.name}}!</h4>
@@ -15,7 +15,7 @@
         <mat-expansion-panel>
             <!-- Header -->
             <mat-expansion-panel-header>
-                <mat-icon>money_off</mat-icon><span class="nav-caption">Мои расходы</span>
+                <mat-icon>table_chart</mat-icon><span class="nav-caption">Мои расходы</span>
             </mat-expansion-panel-header>
             <!-- => Sub menues <= -->
             <!-- Summary category -->
@@ -141,6 +141,26 @@
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion>
+        <mat-expansion-panel>
+            <!-- Header -->
+            <mat-expansion-panel-header>
+                <mat-icon>multiline_chart</mat-icon><span class="nav-caption">Сравнение расходов</span>
+            </mat-expansion-panel-header>
+
+            <a mat-list-item (click)="onComparisonClick('all-time')">
+                <mat-icon>timeline</mat-icon>
+                <span class="submenu">Всё время</span>
+            </a>
+            <a mat-list-item (click)="onComparisonClick('one-year')">
+                <mat-icon>timeline</mat-icon><span class="submenu">Год</span>
+            </a>
+            <a mat-list-item (click)="onComparisonClick('half-year')">
+                <mat-icon>timeline</mat-icon><span class="submenu">Пол года</span>
+            </a>
         </mat-expansion-panel>
     </mat-accordion>
 

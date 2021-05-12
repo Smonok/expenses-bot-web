@@ -5,24 +5,29 @@ import { ExpensesTableComponent } from '../expenses-table/expenses-table.compone
 import { SubexpensesService } from '../services/subexpenses.service';
 import { MonthSubexpensesResponse } from '../response/month-subexpenses'
 import { SubexpensesData } from '../model/subexpenses-data'
+import { TotalSubexpensesResponse } from '../response/total-subexpenses';
 
 @Component({
   selector: 'app-expenses',
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss']
 })
-export class ExpensesComponent {
+export class ExpensesComponent implements OnInit {
   errorMessage!: string;
   currentCategory!: string;
   currentChatId!: string;
-  monthsExpenses: any[] = [];
+  totalExpensesResponse!: TotalSubexpensesResponse;
+  monthsExpensesResponse: any[] = [];
+  dataReady: boolean = false;
   etc = new ExpensesTableComponent();
 
   constructor(private route: ActivatedRoute, private subexpensesService: SubexpensesService) {
     this.currentCategory = this.route.snapshot.paramMap.get('category') || "";
     this.currentCategory = this.currentCategory === 'summary' ? '%' : this.currentCategory
     this.currentChatId = this.route.snapshot.paramMap.get('chatId') || "";
+  }
 
+  ngOnInit(): void {
     const request = {
       chatId: parseInt(this.currentChatId),
       category: this.currentCategory,
@@ -31,10 +36,15 @@ export class ExpensesComponent {
 
     this.subexpensesService.findAllOverTimePeriodWithMonths(request).subscribe(
       (expenses: MonthSubexpensesResponse[]) => {
-        expenses.forEach(data => {
-          this.monthsExpenses.push(data);
-        });
+        this.monthsExpensesResponse = expenses;
+      },
+      (error: any) => this.errorMessage = <any>error
+    );
 
+    this.subexpensesService.findAllOverTimePeriod(request).subscribe(
+      (expenses: TotalSubexpensesResponse) => {
+        this.totalExpensesResponse = expenses;
+        this.dataReady = true;
       },
       (error: any) => this.errorMessage = <any>error
     );

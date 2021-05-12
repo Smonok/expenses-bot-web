@@ -1,4 +1,7 @@
 <div class="statistics-main">
+  
+
+
   <div class="statistics-part col-lg-12" *ngIf="period === this.TimePeriod.THIRTY_DAYS_OR_LESS && chartReady">
     <app-days-statistics
       [mainHeader]="currentCategory === '%' ? 'Расходы по всем категориям' : 'Расходы для категории \'' + currentCategory + '\''"

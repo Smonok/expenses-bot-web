@@ -1,6 +1,6 @@
 <div class="expenses-main col-lg-12">
-  <div class="expenses-part" *ngFor="let item of monthsExpenses; index as i">
-    <div *ngIf="item.allMonths">
+  <div *ngIf="dataReady">
+    <div class="expenses-part">
       <h3 *ngIf="currentCategory !== '%'">
         Расходы для категории '{{currentCategory}}'
       </h3>
@@ -8,23 +8,29 @@
         Расходы по всем категориям
       </h3>
       <h5>
-        Общая сумма: {{item.sum}}
+        Общая сумма: {{totalExpensesResponse.totalExpenses}}
       </h5>
-    </div>
-    <div *ngIf="!item.allMonths">
-      <h3 *ngIf="currentCategory !== '%'">
-        Расходы за {{formatedDateByMonthYear(item.monthYear)}}
-      </h3>
-      <h3 *ngIf="currentCategory === '%'">
-        Расходы по всем категориям за {{formatedDateByMonthYear(item.monthYear)}}
-      </h3>
-      <h5>
-        Общая сумма: {{item.sum}}
-      </h5>
+
+      <app-expenses-table [tableData]="totalExpensesResponse.subexpensesDto" [showCategory]="currentCategory === '%'">
+      </app-expenses-table>
     </div>
 
-    <!-- Добавить категорию в респонс -->
-    <app-expenses-table [tableData]="item.subexpensesDto" [showCategory]="currentCategory === '%'"></app-expenses-table>
+    <div class="expenses-part" *ngFor="let item of monthsExpensesResponse; index as i">
+      <div>
+        <h3 *ngIf="currentCategory !== '%'">
+          Расходы за {{formatedDateByMonthYear(item.monthYear)}}
+        </h3>
+        <h3 *ngIf="currentCategory === '%'">
+          Расходы по всем категориям за {{formatedDateByMonthYear(item.monthYear)}}
+        </h3>
+        <h5>
+          Общая сумма: {{item.sum}}
+        </h5>
+      </div>
+
+      <app-expenses-table [tableData]="item.subexpensesDto" [showCategory]="currentCategory === '%'">
+      </app-expenses-table>
+    </div>
   </div>
 
   <div class="footer"></div>

@@ -7,6 +7,7 @@ import { ExpensesOverTimePeriodRequest } from '../request/expenses-over-time-per
 import { MonthSubexpensesResponse } from '../response/month-subexpenses';
 import { EveryDayExpensesResponse } from '../response/every-day-expenses';
 import { TotalMonthExpensesResponse } from '../response/total-months-expenses';
+import { TotalSubexpensesResponse } from '../response/total-subexpenses';
 
 
 const API_URL = 'http://localhost:8080/api/subexpenses/';
@@ -30,11 +31,19 @@ export class SubexpensesService {
     return this.http.post<MonthSubexpensesResponse[]>(API_URL + 'months', request);
   }
 
+  findAllOverTimePeriod(request: ExpensesOverTimePeriodRequest): Observable<TotalSubexpensesResponse> {
+    return this.http.post<TotalSubexpensesResponse>(API_URL + 'all', request);
+  }
+
   findEveryDayExpensesSum(request: ExpensesOverTimePeriodRequest): Observable<EveryDayExpensesResponse[]> {
     return this.http.post<EveryDayExpensesResponse[]>(API_URL + 'everyday', request);
   }
 
   findTotalMonthsExpenses(request: ExpensesOverTimePeriodRequest): Observable<TotalMonthExpensesResponse[]> {
     return this.http.post<TotalMonthExpensesResponse[]>(API_URL + 'total-months', request);
+  }
+
+  findMonthsExpensesForAllCategories(request: any): Observable<any> {
+    return this.http.post<any>(API_URL + 'comparison', request);
   }
 }
