@@ -2,7 +2,8 @@ export const chartOptions = {
     responsive: true,
     legend: {
         labels: {
-            fontColor: 'rgb(215, 215, 215)'
+            fontColor: 'rgb(215, 215, 215)',
+            fontSize: 17
         }
     },
     scales: {

@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SubexpensesService } from '../services/subexpenses.service';
 import { ActivatedRoute } from '@angular/router';
 
-import { TotalMonthExpensesResponse } from '../response/total-months-expenses';
 import { TimePeriod } from '../enums/time-period';
 import { DateUtil } from '../util/date-util';
 import { RouteUtil } from '../util/route-util';
-
 
 @Component({
   selector: 'app-expenses-comparison',
@@ -14,20 +12,25 @@ import { RouteUtil } from '../util/route-util';
   styleUrls: ['./expenses-comparison.component.scss']
 })
 export class ExpensesComparisonComponent implements OnInit {
-  allCatecoriesExpenses: any;
+  allCategoriesExpenses: any;
   TimePeriod = TimePeriod;
   DateUtil = DateUtil;
   RouteUtil = RouteUtil;
 
-  chartReady: boolean = false;
+  dataReady: boolean = false;
 
   constructor(private route: ActivatedRoute, private subexpensesService: SubexpensesService) { }
 
   ngOnInit() {
+    this.initAllCategoriesExpenses();
+  }
+
+  private initAllCategoriesExpenses() {
     const request = this.initRequest();
 
     this.subexpensesService.findMonthsExpensesForAllCategories(request).subscribe((data: any) => {
-      this.allCatecoriesExpenses = data;
+      this.allCategoriesExpenses = data;
+      this.dataReady = true;
     });
   }
 

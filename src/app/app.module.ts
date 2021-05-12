@@ -26,9 +26,10 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { DaysStatisticsComponent } from './statistics/days-statistics/days-statistics.component';
 import { MonthsStatisticsComponent } from './statistics/months-statistics/months-statistics.component';
 import { ExpensesComparisonComponent } from './expenses-comparison/expenses-comparison.component';
+import { MultipleChartsComponent } from './expenses-comparison/multiple-charts/multiple-charts.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     AboutComponent,
     LoginComponent,
@@ -40,8 +41,9 @@ import { ExpensesComparisonComponent } from './expenses-comparison/expenses-comp
     StatisticsComponent,
     DaysStatisticsComponent,
     MonthsStatisticsComponent,
-      ExpensesComparisonComponent
-   ],
+    ExpensesComparisonComponent,
+    MultipleChartsComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

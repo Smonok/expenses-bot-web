@@ -1,3 +1,9 @@
-<p>
-  expenses-comparison works!
-</p>
+<div class="comparison-main">
+  <div class="comparison-part">
+    <h2>Сравнение расходов по всем категориям</h2>
+    <div *ngIf="dataReady">
+      <app-multiple-charts [allCategoriesExpenses]="allCategoriesExpenses"></app-multiple-charts>
+    </div>
+  </div>
+</div>
+<div class="footer"></div>
