@@ -6,6 +6,7 @@ import { EveryDayExpensesResponse } from '../response/every-day-expenses';
 import { TotalMonthExpensesResponse } from '../response/total-months-expenses';
 import { TimePeriod } from '../enums/time-period';
 import { DateUtil } from '../util/date-util';
+import { RouteUtil } from '../util/route-util';
 
 @Component({
   selector: 'app-statistics',
@@ -15,6 +16,7 @@ import { DateUtil } from '../util/date-util';
 export class StatisticsComponent {
   TimePeriod = TimePeriod;
   DateUtil = DateUtil;
+  RouteUtil = RouteUtil;
 
   chartReady: boolean = false;
   errorMessage!: string;
@@ -27,7 +29,7 @@ export class StatisticsComponent {
     this.currentCategory = this.parsedCurrentCategory();
     const pathPeriod = this.parsedRoute('period');
     this.period = this.currentState(pathPeriod);
-    const request = this.initRequest(pathPeriod);
+    const request = this.initRequest();
 
     this.initDaysExpenses(request);
     this.initMonthExpenses(request);
@@ -53,11 +55,11 @@ export class StatisticsComponent {
     return TimePeriod.ALL_TIME;
   }
 
-  private initRequest(currentPeriod: string) {
+  private initRequest() {
     return {
       chatId: parseInt(this.parsedRoute('chatId')),
       category: this.currentCategory,
-      timePeriod: this.getTimePeriod(currentPeriod)
+      timePeriod: RouteUtil.correctPeriodForRequest(this.route, 'period')
     }
   }
 
@@ -86,21 +88,6 @@ export class StatisticsComponent {
         },
         (error: any) => this.errorMessage = <any>error
       );
-    }
-  }
-
-  private getTimePeriod(pathPeriod: string) {
-    switch (pathPeriod) {
-      case 'one-year':
-        return '1 year';
-      case 'six-month':
-        return '6 month';
-      case 'thirty-days':
-        return '30 days';
-      case 'seven-days':
-        return '7 days';
-      default:
-        return '100 year';
     }
   }
 }

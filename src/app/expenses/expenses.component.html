@@ -18,10 +18,10 @@
     <div class="expenses-part" *ngFor="let item of monthsExpensesResponse; index as i">
       <div>
         <h3 *ngIf="currentCategory !== '%'">
-          Расходы за {{formatedDateByMonthYear(item.monthYear)}}
+          Расходы за {{DateUtil.formatedDateByMonthYear(item.monthYear)}}
         </h3>
         <h3 *ngIf="currentCategory === '%'">
-          Расходы по всем категориям за {{formatedDateByMonthYear(item.monthYear)}}
+          Расходы по всем категориям за {{DateUtil.formatedDateByMonthYear(item.monthYear)}}
         </h3>
         <h5>
           Общая сумма: {{item.sum}}

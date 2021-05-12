@@ -6,6 +6,8 @@ import { SubexpensesService } from '../services/subexpenses.service';
 import { MonthSubexpensesResponse } from '../response/month-subexpenses'
 import { SubexpensesData } from '../model/subexpenses-data'
 import { TotalSubexpensesResponse } from '../response/total-subexpenses';
+import { DateUtil } from '../util/date-util';
+import { RouteUtil } from '../util/route-util';
 
 @Component({
   selector: 'app-expenses',
@@ -13,6 +15,9 @@ import { TotalSubexpensesResponse } from '../response/total-subexpenses';
   styleUrls: ['./expenses.component.scss']
 })
 export class ExpensesComponent implements OnInit {
+  DateUtil = DateUtil;
+  RouteUtil = RouteUtil;
+
   errorMessage!: string;
   currentCategory!: string;
   currentChatId!: string;
@@ -28,19 +33,22 @@ export class ExpensesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const request = {
-      chatId: parseInt(this.currentChatId),
-      category: this.currentCategory,
-      timePeriod: this.getTimePeriod()
-    }
+    const request = this.createRequest();
 
+    this.initMonthsExpensesResponse(request);
+    this.initTotalExpensesResponse(request);
+  }
+
+  private initMonthsExpensesResponse(request: any) {
     this.subexpensesService.findAllOverTimePeriodWithMonths(request).subscribe(
       (expenses: MonthSubexpensesResponse[]) => {
         this.monthsExpensesResponse = expenses;
       },
       (error: any) => this.errorMessage = <any>error
     );
+  }
 
+  private initTotalExpensesResponse(request: any) {
     this.subexpensesService.findAllOverTimePeriod(request).subscribe(
       (expenses: TotalSubexpensesResponse) => {
         this.totalExpensesResponse = expenses;
@@ -50,40 +58,11 @@ export class ExpensesComponent implements OnInit {
     );
   }
 
-  formatedDateByMonthYear(monthYear: string): string {
-    if (!monthYear.includes('.')) {
-      return '';
-    }
-
-    var dotIndex = monthYear.lastIndexOf('.');
-    const year = monthYear.substring(dotIndex + 1);
-    const monthNumber = parseInt(monthYear.substr(0, dotIndex));
-    const month = this.monthNameByNumber(monthNumber);
-
-    return month + ', ' + year;
-  }
-
-  private monthNameByNumber(num: number): string {
-    var monthNames = ['Январь', 'Февраль', 'Март',
-      'Апрель', 'Май', 'Июнь',
-      'Июль', 'Август', 'Сентябрь',
-      'Октябрь', 'Ноябрь', 'Декабрь'];
-
-    return monthNames[num - 1];
-  }
-
-  private getTimePeriod() {
-    const pathPeriod = this.route.snapshot.paramMap.get('period') || '';
-
-    switch (pathPeriod) {
-      case 'six-month':
-        return '6 month';
-      case 'thirty-days':
-        return '30 days';
-      case 'seven-days':
-        return '7 days';
-      default:
-        return '100 year';
-    }
+  private createRequest() {
+    return {
+      chatId: parseInt(this.currentChatId),
+      category: this.currentCategory,
+      timePeriod: RouteUtil.correctPeriodForRequest(this.route, 'period')
+    };
   }
 }

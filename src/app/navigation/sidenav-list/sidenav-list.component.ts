@@ -26,15 +26,19 @@ export class SidenavListComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
       this.chatId = this.user.chatId;
 
-      this.userService.getCategoriesByChatId(this.user.chatId).subscribe(
-        data => {
-          this.categories = data;
-        },
-        err => {
-          console.log(JSON.parse(err.error).message);
-        }
-      );
+      this.initCategories();
     }
+  }
+
+  private initCategories() {
+    this.userService.getCategoriesByChatId(this.user.chatId).subscribe(
+      data => {
+        this.categories = data;
+      },
+      err => {
+        console.log(JSON.parse(err.error).message);
+      }
+    );
   }
 
   public onCategoryClick = (category: string, route: string, period: string) => {

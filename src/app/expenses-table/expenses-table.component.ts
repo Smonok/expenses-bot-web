@@ -19,9 +19,7 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-
-  }
+  constructor() {  }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.tableData);
@@ -45,5 +43,4 @@ export class ExpensesTableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }
