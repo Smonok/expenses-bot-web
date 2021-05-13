@@ -1,19 +1,38 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ currentUser.name }}</strong> Profile
-    </h3>
-  </header>
+<div *ngIf="currentUser; else loggedOut">
+  <div class="col-md-12 profile-main">
+    <div class="col-md-2"></div>
 
-  <p>
-    <strong>Email:</strong>
-    {{ currentUser.email }}
-    <br/>
-    <strong>ChatId:</strong>
-    {{ currentUser.chatId }}
-  </p>
+    <div class="user-info col-md-3">
+      <ngx-avatar class="user-info-component user-avatar" name="{{currentUser.name}}" value="28%" size="250"
+        [round]="true"></ngx-avatar>
+
+      <h3 class="user-info-component">{{currentUser.name}}!</h3>
+      <h3 class="user-info-component muted">{{currentUser.email}}!</h3>
+      <button type="button" class="user-info-component btn btn-outline-secondary">Изменить</button>
+      <section class="user-info-component">
+        <mat-checkbox>Получать ежемесячный отчёт на почту</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="expenses-info col-md-5">
+      <h2>Общая сумма расходов: 500000</h2>
+
+      <h2>Категории:</h2>
+      <p>TEST - 3456</p>
+      <p>Продукты - 77564</p>
+
+      <h2>Больше всего денег потрачено на 'Продукты'</h2>
+      <h2>Меньше всего денег потрачено на 'TEST'</h2>
+      <h2>Самое большое количество расходов за раз: 323</h2>
+      <p>Категория 'Продукты', причина: 'Купил пива'</p>
+
+      <h2>Чаще всего использовалась категория 'Продукты' - 46 раз</h2>
+    </div>
+
+    <div class="col-md-2"></div>
+  </div>
 </div>
 
 <ng-template #loggedOut>
-  Please login.
+  Пожалуйста, войдите
 </ng-template>

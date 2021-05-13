@@ -1,0 +1,35 @@
+.profile-main {
+    display: flex;
+    margin: 0 auto;
+}
+
+.expenses-info {
+    background-color: #334252;
+    border-radius: 30px 30px 30px 30px;
+    padding: 1%;
+    margin-top: 1%;
+    flex: 1;
+}
+
+.user-info {
+    margin-top: 1%;
+    padding: 1%;
+    flex: 1;
+}
+
+.user-info-component {
+    margin-top: 5%;
+}
+
+.muted {
+    color: #90a2b5;
+}
+
+.btn {
+    width: 70%;
+    color: #c0cad5;
+}
+
+button:hover {
+    background-color: #555555;
+}
