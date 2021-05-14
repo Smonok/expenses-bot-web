@@ -1,9 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { AvatarModule } from 'ngx-avatar';
 
 import { TokenStorageService } from '../../services/token-storage.service';
-import { UserService } from '../../services/user.service';
+import { CategoryButtonService } from '../../services/category-button.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -17,7 +16,7 @@ export class SidenavListComponent implements OnInit {
   isLoggedIn = false;
   user!: any;
 
-  constructor(private tokenStorageService: TokenStorageService, private userService: UserService, private router: Router) { }
+  constructor(private tokenStorageService: TokenStorageService, private categoryButtonService: CategoryButtonService, private router: Router) { }
 
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -31,7 +30,7 @@ export class SidenavListComponent implements OnInit {
   }
 
   private initCategories() {
-    this.userService.getCategoriesByChatId(this.user.chatId).subscribe(
+    this.categoryButtonService.findCategoriesByChatId(this.user.chatId).subscribe(
       data => {
         this.categories = data;
       },

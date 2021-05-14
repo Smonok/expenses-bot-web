@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:8080/api/users/';
-const CATEGORY_BUTTON_API_URL = 'http://localhost:8080/api/categories/';
+const CATEGORY_BUTTON_API_URL = 'http://localhost:8080/api/category-buttons/categories/';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,5 @@ export class UserService {
 
   getChatIdByEmail(email: string): Observable<any> {
     return this.http.get(API_URL + email, { responseType: 'text' });
-  }
-
-  getCategoriesByChatId(chatId: number): Observable<string[]> {
-    return this.http.get<string[]>(CATEGORY_BUTTON_API_URL + chatId);
   }
 }

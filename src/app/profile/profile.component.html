@@ -15,18 +15,29 @@
     </div>
 
     <div class="expenses-info col-md-5">
-      <h2>Общая сумма расходов: 500000</h2>
+      <div class="categories-container">
+        <a routerLink="/user/{{currentUser.chatId}}/summary/expenses/all-time">
+          <p style="font-size: x-large;">Суммарно</p>
+          <p class="muted">{{summaryExpenses}}</p>
+        </a>
 
-      <h2>Категории:</h2>
-      <p>TEST - 3456</p>
-      <p>Продукты - 77564</p>
+      </div>
 
-      <h2>Больше всего денег потрачено на 'Продукты'</h2>
+      <div class="row">
+        <div *ngFor="let categoryExpenses of categoriesExpenses" class="col-md-6 categories-container">
+          <a routerLink="/user/{{currentUser.chatId}}/{{categoryExpenses.category}}/expenses/all-time">
+            <p style="font-size: x-large;">{{categoryExpenses.category}}</p>
+            <p class="muted">{{categoryExpenses.expenses}}</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- <h2>Больше всего денег потрачено на 'Продукты'</h2>
       <h2>Меньше всего денег потрачено на 'TEST'</h2>
       <h2>Самое большое количество расходов за раз: 323</h2>
       <p>Категория 'Продукты', причина: 'Купил пива'</p>
 
-      <h2>Чаще всего использовалась категория 'Продукты' - 46 раз</h2>
+      <h2>Чаще всего использовалась категория 'Продукты' - 46 раз</h2> -->
     </div>
 
     <div class="col-md-2"></div>
