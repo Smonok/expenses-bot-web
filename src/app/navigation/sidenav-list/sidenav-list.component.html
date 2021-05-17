@@ -1,13 +1,13 @@
 <mat-nav-list *ngIf="isLoggedIn">
     <!-- Welcome header gravatarId="adde9b2b981a8083cf084c63ad86f753" -->
     <div class="welcome">
-        <ngx-avatar name="{{user.name}}" value="28%" size="100"
-            [round]="true">
+        <ngx-avatar name="{{user.name}}" value="28%" size="100" [round]="true">
         </ngx-avatar>
         <h4>Добро пожаловать, {{user.name}}!</h4>
     </div>
 
-    <a mat-list-item routerLink="user/{{chatId}}/profile" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="user/{{chatId}}/profile" [queryParams]="{ tab: 'categories' }"
+        queryParamsHandling="merge" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon><span class="nav-caption">Личный кабинет</span>
     </a>
 

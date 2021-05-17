@@ -1,4 +1,4 @@
-<div *ngIf="currentUser; else loggedOut">
+<div *ngIf="currentUser">
   <div class="col-md-12 profile-main">
     <div class="col-md-2"></div>
 
@@ -6,8 +6,8 @@
       <ngx-avatar class="user-info-component user-avatar" name="{{currentUser.name}}" value="28%" size="250"
         [round]="true"></ngx-avatar>
 
-      <h3 class="user-info-component">{{currentUser.name}}!</h3>
-      <h3 class="user-info-component muted">{{currentUser.email}}!</h3>
+      <h3 class="user-info-component">{{currentUser.name}}</h3>
+      <h3 class="user-info-component muted">{{currentUser.email}}</h3>
       <button type="button" class="user-info-component btn btn-outline-secondary">Изменить</button>
       <section class="user-info-component">
         <mat-checkbox>Получать ежемесячный отчёт на почту</mat-checkbox>
@@ -15,35 +15,89 @@
     </div>
 
     <div class="expenses-info col-md-5">
-      <div class="categories-container">
-        <a routerLink="/user/{{currentUser.chatId}}/summary/expenses/all-time">
-          <p style="font-size: x-large;">Суммарно</p>
-          <p class="muted">{{summaryExpenses}}</p>
-        </a>
-
-      </div>
-
-      <div class="row">
-        <div *ngFor="let categoryExpenses of categoriesExpenses" class="col-md-6 categories-container">
-          <a routerLink="/user/{{currentUser.chatId}}/{{categoryExpenses.category}}/expenses/all-time">
-            <p style="font-size: x-large;">{{categoryExpenses.category}}</p>
-            <p class="muted">{{categoryExpenses.expenses}}</p>
+      <nav class="navbar navbar-fixed-top navbar-dark bg-inverse navbar-expand">
+        <div class="row">
+          <ul class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item">
+              <a class="nav-link target" routerLink="/user/{{currentUser.chatId}}/profile"
+                [queryParams]="{ tab: 'categories' }" queryParamsHandling="merge" [routerLinkActive]="['is-active']">
+                <mat-icon inline=true>apps</mat-icon> Категории
+              </a>
+            </li>
+            <li class="nav-item"><a class="nav-link target" routerLink="/user/{{currentUser.chatId}}/profile"
+                [queryParams]="{ tab: 'statistics' }" queryParamsHandling="merge" [routerLinkActive]="['is-active']">
+                <mat-icon inline=true>bar_chart</mat-icon> Статистика
+              </a></li>
+          </ul>
+        </div>
+      </nav>
+      <router-outlet></router-outlet>
+      <div *ngIf="currentTab === 'categories'">
+        <div class="categories-container">
+          <a routerLink="/user/{{currentUser.chatId}}/summary/expenses/all-time">
+            <p style="font-size: x-large;">Суммарно</p>
+            <p class="muted">{{summaryExpenses}}</p>
           </a>
+        </div>
+
+        <div class="row">
+          <div *ngFor="let categoryExpenses of categoriesExpenses" class="col-md-6 categories-container">
+            <a routerLink="/user/{{currentUser.chatId}}/{{categoryExpenses.category}}/expenses/all-time">
+              <p style="font-size: x-large;">{{categoryExpenses.category}}</p>
+              <p class="muted">{{categoryExpenses.expenses}}</p>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- <h2>Больше всего денег потрачено на 'Продукты'</h2>
-      <h2>Меньше всего денег потрачено на 'TEST'</h2>
-      <h2>Самое большое количество расходов за раз: 323</h2>
-      <p>Категория 'Продукты', причина: 'Купил пива'</p>
+      <!-- Statistics tab -->
+      <div *ngIf="currentTab === 'statistics'">
+        <!-- Highest and lowest category buttons row -->
+        <div class="row">
+          <!-- Highest expenses -->
+          <div class="col-md-6 categories-container" *ngIf="highestExpensesCategory">
+            <h5>Больше всего расходов</h5>
+            <a routerLink="/user/{{currentUser.chatId}}/{{highestExpensesCategory.category}}/expenses/all-time">
+              <p style="font-size: x-large;">{{highestExpensesCategory.category}}</p>
+              <p class="muted">{{highestExpensesCategory.expenses}}</p>
+            </a>
+          </div>
+          <!-- Lowest expenses -->
+          <div class="col-md-6 categories-container" *ngIf="lowestExpensesCategory">
+            <h5>Меньше всего расходов</h5>
+            <a routerLink="/user/{{currentUser.chatId}}/{{lowestExpensesCategory.category}}/expenses/all-time">
+              <p style="font-size: x-large;">{{lowestExpensesCategory.category}}</p>
+              <p class="muted">{{lowestExpensesCategory.expenses}}</p>
+            </a>
+          </div>
+        </div>
 
-      <h2>Чаще всего использовалась категория 'Продукты' - 46 раз</h2> -->
+        <!-- Maximum amount of money spent -->
+        <h5 id="one-per-row-header">Максимальная затраченная сумма</h5>
+        <div class="one-category-per-row-container" *ngIf="maxSubexpenses">
+          <a>
+            <p style="font-size: x-large;">{{maxSubexpenses.category}} - {{maxSubexpenses.subexpenses}}</p>
+            <p style="font-size: large;">{{maxSubexpenses.date}}</p>
+            <p class="muted">{{maxSubexpenses.reasons}}</p>
+          </a>
+        </div>
+
+        <!-- Most used category -->
+        <h5 id="one-per-row-header">Чаще всего использовалась</h5>
+        <div class="one-category-per-row-container" *ngIf="mostCommonlyUsed">
+          <a>
+            <p style="font-size: x-large;">{{mostCommonlyUsed.category}}</p>
+            <p class="muted">{{mostCommonlyUsed.number}} {{mostCommonlyUsed.number % 2 === 0 ? 'раз': 'раза'}}</p>
+          </a>
+        </div>
+
+        <div class="col-md-2"></div>
+      </div>
     </div>
-
-    <div class="col-md-2"></div>
   </div>
-</div>
 
-<ng-template #loggedOut>
-  Пожалуйста, войдите
-</ng-template>
+  <div class="footer"></div>
+
+  <ng-template #loggedOut>
+    Пожалуйста, войдите в учётную запись или зарегистрируйтесь
+  </ng-template>

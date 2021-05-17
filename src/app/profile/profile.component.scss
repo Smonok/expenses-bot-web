@@ -13,6 +13,33 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
+.navbar {
+    background-color: #334252;
+
+    a {
+        font-size: 2.5vh;
+        margin-right: 5vh;
+        color: rgb(184, 184, 184);
+        border: 0px;
+        box-shadow: none;
+    }
+
+    a:hover {
+        background-color: #334252;
+        text-decoration: none;
+        border-bottom: 3px solid #2f9a92;
+        border-radius: 0;
+        color: rgb(230, 230, 230);
+    }
+
+    .is-active {
+        border-bottom: 3px solid #f75940;
+        border-radius: 0;
+        font-weight: bold;
+        color: rgb(230, 230, 230);
+    }
+}
+
 .user-info {
     margin-top: 1%;
     padding: 1%;
@@ -33,14 +60,24 @@
 }
 
 button:hover {
-    background-color: #555555;
+    background-color: orange;
+    color: rgb(50, 50, 50);
 }
 
-.categories-container {
+.categories-container,
+.one-category-per-row-container {
     text-align: center;
     margin-top: 5%;
     display: flex;
     flex-wrap: wrap;
+}
+
+.one-category-per-row-container {
+    margin-top: 0;
+}
+
+#one-per-row-header {
+    margin-top: 5%;
 }
 
 a {
@@ -51,10 +88,14 @@ a {
     text-align: center;
     flex: 1;
     font-size: large;
-    color: rgb(215, 215, 215);
+    color: rgb(215, 215, 215);    
 }
 
 a:hover {
     background-color: #1c7065a4;
     text-decoration: none;
+}
+
+.footer {
+    height: 10vh;
 }

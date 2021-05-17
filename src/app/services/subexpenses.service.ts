@@ -46,4 +46,12 @@ export class SubexpensesService {
   findMonthsExpensesForAllCategories(request: any): Observable<any> {
     return this.http.post<any>(API_URL + 'comparison', request);
   }
+
+  findMaxByChatId(chatId: number): Observable<any> {
+    return this.http.get<any>(API_URL + chatId + '/max');
+  }
+
+  countEntitiesNumber(chatId: number): Observable<any> {
+    return this.http.get<any>(API_URL + chatId + '/count');
+  }
 }
