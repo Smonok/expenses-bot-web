@@ -59,9 +59,14 @@
     color: #c0cad5;
 }
 
-button:hover {
+.btn-outline-secondary:hover {
     background-color: orange;
     color: rgb(50, 50, 50);
+}
+
+.alert-danger {
+    margin-top: 5px;
+    text-align: center;
 }
 
 .categories-container,
@@ -88,7 +93,7 @@ a {
     text-align: center;
     flex: 1;
     font-size: large;
-    color: rgb(215, 215, 215);    
+    color: rgb(215, 215, 215);
 }
 
 a:hover {

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryButton } from '../response/category-button';
 import { CategoryButtonService } from '../services/category-button.service';
 import { SubexpensesService } from '../services/subexpenses.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +13,10 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  userInfoForm: any = {
+    name: 'User#',
+    email: ''
+  };
   currentUser: any;
   categoriesExpenses: CategoryButton[] = [];
   summaryExpenses: number = 0;
@@ -20,8 +26,12 @@ export class ProfileComponent implements OnInit {
   isDataReady: boolean = false;
   maxSubexpenses!: any;
   mostCommonlyUsed!: any;
+  editMode: boolean = false;
+  isEditSuccessful: boolean = false;
 
-  constructor(private token: TokenStorageService, private subexpensesService: SubexpensesService, private categoryButtonService: CategoryButtonService, private router: Router) {
+  constructor(private userService: UserService, private token: TokenStorageService, private router: Router,
+    private subexpensesService: SubexpensesService, private categoryButtonService: CategoryButtonService,
+    private toastr: ToastrService) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) { this.onTabChange(); }
     });
@@ -29,6 +39,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
+    this.userInfoForm = {
+      name: this.currentUser.name,
+      email: this.currentUser.email
+    }
+
     this.initCategoriesExpenses();
     this.initSummaryExpenses();
     this.initMaxSubexpenses();
@@ -87,6 +102,27 @@ export class ProfileComponent implements OnInit {
         console.log(JSON.parse(err.error).message);
       }
     );
+  }
+
+  onSubmit(): void {
+    const user: any = this.userInfoForm;
+    this.userService.update(this.currentUser.chatId, user).subscribe(
+      data => {
+        this.isEditSuccessful = true;
+
+        this.token.signOut();
+        this.showSuccessToastr();
+        this.router.navigate(['login']);
+
+      },
+      err => {
+        console.log("err: ", err);
+      }
+    );
+  }
+
+  showSuccessToastr() {
+    this.toastr.success('Перезайдите в учётную запись для применения изменений', 'Сохранено!');
   }
 
   findHighestExpensesCategory(categoriesExpenses: any[]) {

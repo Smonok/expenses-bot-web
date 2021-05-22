@@ -6,9 +6,55 @@
       <ngx-avatar class="user-info-component user-avatar" name="{{currentUser.name}}" value="28%" size="250"
         [round]="true"></ngx-avatar>
 
-      <h3 class="user-info-component">{{currentUser.name}}</h3>
-      <h3 class="user-info-component muted">{{currentUser.email}}</h3>
-      <button type="button" class="user-info-component btn btn-outline-secondary">Изменить</button>
+      <div *ngIf="!editMode; else saveEditMode">
+        <h3 class="user-info-component">{{currentUser.name}}</h3>
+        <h3 class="user-info-component muted">{{currentUser.email}}</h3>
+        <button type="button" class="user-info-component btn btn-outline-secondary"
+          (click)="editMode=true">Изменить</button>
+      </div>
+
+      <ng-template #saveEditMode>
+        <div class="form-group">
+          <form *ngIf="!isEditSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <!-- NAME -->
+            <div class="form-group">
+              <label for="name">Имя<span class="required-asterisk">*</span></label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="userInfoForm.name" required minlength="2"
+                maxlength="30" #name="ngModel" />
+              <div class="alert alert-danger" *ngIf="name.errors && f.submitted">
+                <div *ngIf="name.errors.required">Обязательно для заполнения</div>
+                <div *ngIf="name.errors.minlength">
+                  Имя должно содержать больше 1-го символа
+                </div>
+                <div *ngIf="name.errors.maxlength">
+                  Имя должно содержать меньше 30 символов
+                </div>
+              </div>
+            </div>
+            <!-- EMAIL -->
+            <div class="form-group">
+              <label for="email">Email<span class="required-asterisk">*</span></label>
+              <input type="email" class="form-control" name="email" [(ngModel)]="userInfoForm.email" required email
+                #email="ngModel" />
+              <div class="alert alert-danger" *ngIf="email.errors && f.submitted">
+                <div *ngIf="email.errors.required">Обязательно для заполнения</div>
+                <div *ngIf="email.errors.email">
+                  Неверный формат
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Сохранить</button>
+            </div>
+
+            <div class="alert alert-warning" *ngIf="f.submitted && !isEditSuccessful">
+              Ошибка!<br>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+
       <section class="user-info-component">
         <mat-checkbox>Получать ежемесячный отчёт на почту</mat-checkbox>
       </section>

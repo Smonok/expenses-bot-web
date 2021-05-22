@@ -24,6 +24,7 @@ export class ExpensesComponent implements OnInit {
   totalExpensesResponse!: TotalSubexpensesResponse;
   monthsExpensesResponse: any[] = [];
   dataReady: boolean = false;
+  win: Window = window;
   etc = new ExpensesTableComponent();
 
   constructor(private route: ActivatedRoute, private subexpensesService: SubexpensesService) {
